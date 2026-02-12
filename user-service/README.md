@@ -172,7 +172,7 @@ docker images | grep user-service
 # Ejecutar contenedor de la app
 docker run -p 8081:8081 \
 -e SPRING_PROFILES_ACTIVE=kubernetes \
--e DB_URL=jdbc:postgresql://host.docker.internal:5432/userdb \
+-e DB_URL=jdbc:postgresql://host.docker.internal:5434/userdb \
 -e DB_USERNAME=postgres \
 -e DB_PASSWORD=postgres \
 user-service:1.0
@@ -186,11 +186,8 @@ user-service:1.0
 # Health check
 curl http://localhost:8081/actuator/health
 
-# Health check
-curl http://localhost:8081/actuator/health
-
 # Respuesta esperada:
-# {"status":"UP"}
+# {"status":"UP","groups":["liveness","readiness"]}
 
 # Listar usuarios
 curl http://localhost:8081/api/users
