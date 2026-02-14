@@ -1046,7 +1046,7 @@ aws rds delete-db-instance \
   --db-instance-identifier productdb \
   --skip-final-snapshot
 
-# 5. Eliminar imágenes de ECR (opcional)
+# 5. Eliminar imágenes de ECR
 aws ecr delete-repository \
   --repository-name user-service \
   --force
