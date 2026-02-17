@@ -330,7 +330,7 @@ kubectl config use-context docker-desktop
 
 ```
 
-- Borrar el despliegue de user-service
+- Borrar el despliegue de user-service (OBSERVADO)
 ```
 # Ver deployments
 kubectl get deployments
@@ -479,7 +479,7 @@ kubectl get service -n user-service
 curl http://localhost:30081/actuator/health
 
 # Output esperado:
-# {"status":"UP"}
+# {"status":"UP","groups":["liveness","readiness"]}
 ```
 ### 5.- Listar users
 ```
