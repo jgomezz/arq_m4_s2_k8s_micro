@@ -319,7 +319,7 @@ spec:
 ```
 
 ### 3.- Desplegar en Kubernetes
-- 
+
 - Configurar Contexto para Docker Desktop
 ```
 # Ver los contextos
@@ -338,18 +338,20 @@ kubectl delete -f k8s/01-configmap.yaml
 kubectl delete -f k8s/02-secret.yaml
 kubectl delete -f k8s/03-deployment.yaml
 kubectl delete -f k8s/04-service.yaml
-
 ```
-
-- Volver a desplegar 
+- 
+- Volver a desplegar user-service
 ```
 kubectl apply -f k8s/00-namespace.yaml
 kubectl apply -f k8s/01-configmap.yaml
 kubectl apply -f k8s/02-secret.yaml
 kubectl apply -f k8s/03-deployment.yaml
 kubectl apply -f k8s/04-service.yaml
+```
 
-# Verificar el despliegue  
+- Verificar el despliegue
+```
+# Verificar el deployment  
 kubectl get deployments -n user-service
 
 # Verificar Service
