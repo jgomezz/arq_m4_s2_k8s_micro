@@ -339,7 +339,7 @@ kubectl delete -f k8s/02-secret.yaml
 kubectl delete -f k8s/03-deployment.yaml
 kubectl delete -f k8s/04-service.yaml
 ```
-- 
+
 - Volver a desplegar user-service
 ```
 kubectl apply -f k8s/00-namespace.yaml
