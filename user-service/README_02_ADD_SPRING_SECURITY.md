@@ -571,20 +571,14 @@ docker run -p 8081:8081 \
 -e DB_PASSWORD=postgres \
 user-service:1.0
 
-# Deberías ver:
-# Started UserServiceApplication in X seconds
-
 
 # En otra terminal, probar
-
-# Health check
-curl http://localhost:8082/actuator/health
 
 # Health check
 curl http://localhost:8081/actuator/health
 
 # Respuesta esperada:
-# {"status":"UP"}
+# {"status":"UP","groups":["liveness","readiness"]}
 
 # Listar usuarios
 curl http://localhost:8081/api/users
