@@ -318,8 +318,8 @@ spec:
 
 ```
 
-### 3.- Borrar los deployment
-
+### 3.- Desplegar en Kubernetes
+- 
 - Configurar Contexto para Docker Desktop
 ```
 # Ver los contextos
@@ -330,100 +330,38 @@ kubectl config use-context docker-desktop
 
 ```
 
-- Borrar el despliegue de user-service (OBSERVADO)
+- Borrar el despliegue de user-service 
 ```
-# Ver deployments
-kubectl get deployments
+# Borrar todo el namespace (incluye deployments, services, configmaps, secrets)
+kubectl delete -f k8s/00-namespace.yaml
+kubectl delete -f k8s/01-configmap.yaml
+kubectl delete -f k8s/02-secret.yaml
+kubectl delete -f k8s/03-deployment.yaml
+kubectl delete -f k8s/04-service.yaml
 
-# NAME              READY   UP-TO-DATE   AVAILABLE   AGE
-# product-service   0/2     2            0           4d14h
-# user-service      0/2     2            0           4d14h
-
-# Borrar deployment
-kubectl delete deployment user-service
-
-# Verificar que se borró
-kubectl get deployments
-
-# NAME              READY   UP-TO-DATE   AVAILABLE   AGE
-# product-service   0/2     2            0           4d14h
-
-# Verificar que los pods se borraron
-kubectl get pods 
 ```
 
-### 4.- Desplegar en Kubernetes
-
-#### Crear Namespace en Kubernetes
-
-- Aplicar namespace
+- Volver a desplegar 
 ```
 kubectl apply -f k8s/00-namespace.yaml
-
-# Output:
-# namespace/user-service created
-```
-- Verificar namespace
-```
-kubectl get namespaces  
-
-# Deberías ver:
-# user-service       Active   X minutes
-```
-
-#### Crear ConfigMap
-
-- Aplicar ConfigMap
-```
 kubectl apply -f k8s/01-configmap.yaml
-
-# Output:
-# configmap/user-service-config created
-```
-- Verificar ConfigMap
-```
-kubectl get configmap -n user-service
-
-# Ver contenido
-kubectl describe configmap user-service-config -n user-service
-```
-
-#### Crear Secret
-```
-# Aplicar
 kubectl apply -f k8s/02-secret.yaml
-
-# Output:
-# secret/user-service-secret created
-
-# Verificar
-kubectl get secret -n user-service
-
-# Ver detalle 
-kubectl describe secret user-service-secret -n user-service
-
-```
-
-#### Desplegar User-Service
-
-- Aplicar Deployment
-```
 kubectl apply -f k8s/03-deployment.yaml
+kubectl apply -f k8s/04-service.yaml
 
-# Output:
-# deployment.apps/user-service created
+# Verificar el despliegue  
+kubectl get deployments -n user-service
+
+# Verificar Service
+kubectl get service -n user-service
+ 
+# Verificar pods
+kubectl get pods -n user-service  
 ```
-
 
 - En caso necesites redesplegar (por ejemplo, después de corregir un error en el Deployment):
 ```
  kubectl rollout restart deployment user-service -n user-service
-```
-
-
-- Verificar pods
-```
-kubectl get pods -n user-service 
 ```
 
 - Ver logs
@@ -436,43 +374,6 @@ kubectl describe pod <POD_NAME> -n user-service
 
 ```
 
-- Verificar variables de entorno
-
-```
-# Entrar al pod
-kubectl exec -it <POD_NAME> -n user-service -- /bin/sh
-
-# Ver variables
-env | grep DB_
-
-
-# Salir
-exit
-
-```
-
-#### Exponer con Service
-
-- Aplicar Service
-
-```
-kubectl apply -f k8s/04-service.yaml
-
-# Output:
-# service/user-service created
-```
-
-- Verificar Service
-```
-
-kubectl get service -n user-service
-
-# Output:
-# NAME              TYPE       CLUSTER-IP      PORT(S)        AGE
-# user-service      NodePort   10.96.xxx.xxx   80:30082/TCP   5s
-
-```
-
 - Probar user-service
 ```
 # Health check
@@ -481,7 +382,7 @@ curl http://localhost:30081/actuator/health
 # Output esperado:
 # {"status":"UP","groups":["liveness","readiness"]}
 ```
-### 5.- Listar users
+### 4.- Listar users
 ```
 curl http://localhost:30081/api/users
 ```
