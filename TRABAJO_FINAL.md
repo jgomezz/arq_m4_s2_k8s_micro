@@ -237,12 +237,7 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price, subtotal) V
 {
   "id": 1,
   "orderNumber": "ORD-2025-001",
-  "user": {
-    "id": 1,
-    "username": "john_doe",
-    "fullName": "John Doe",
-    "email": "john@example.com"
-  },
+  "userId": 1,
   "items": [
     {
       "id": 1,
