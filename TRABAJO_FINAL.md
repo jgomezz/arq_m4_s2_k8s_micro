@@ -7,7 +7,7 @@
 
 ## 🎯 OBJETIVO
 
-Desarrollar un microservicio de **Gestión de Órdenes (Order Service)** que se integre con los microservicios existentes (**User Service** y **Product Service**).
+Desarrollar un microservicio de **Gestión de Órdenes (Order Service)** que se integre con el microservicio **Product Service**.
 
 ---
 
@@ -19,8 +19,7 @@ En una arquitectura de microservicios para un sistema de e-commerce, se requiere
 2. **Asociar cada orden a un usuario** específico del sistema
 3. **(OPCIONAL)Calcular automáticamente** el monto total de la orden basándose en precios actuales
 
-El reto principal es que el Order Service **depende de dos servicios externos**:
-- **User Service**: Para validar usuarios y obtener información del comprador
+El reto principal es que el Order Service **depende de**:
 - **Product Service**: Para validar productos y obtener precios actuales
 
 ---
