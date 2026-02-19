@@ -7,7 +7,7 @@
 
 ## 🎯 OBJETIVO
 
-Desarrollar un microservicio de **Gestión de Órdenes (Order Service)** que se integre con el microservicio **Product Service**.
+Desarrollar un microservicio de **Gestión de Órdenes (Order Service)** que se integre con el microservicio **Product Service** y se despliegue localmente en Kubernete.
 
 ---
 
