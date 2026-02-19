@@ -17,7 +17,7 @@ En una arquitectura de microservicios para un sistema de e-commerce, se requiere
 
 1. **Registrar órdenes de compra** que contengan uno o más productos
 2. **Asociar cada orden a un usuario** específico del sistema
-3. **Calcular automáticamente** el monto total de la orden basándose en precios actuales
+3. **(OPCIONAL)Calcular automáticamente** el monto total de la orden basándose en precios actuales
 
 El reto principal es que el Order Service **depende de dos servicios externos**:
 - **User Service**: Para validar usuarios y obtener información del comprador
@@ -63,10 +63,6 @@ Cliente
   │ { userId: 1, items: [...] }
   ▼
 Order Service
-  │
-  ├─---------------------──► User Service
-  │                          GET /api/users/1
-  │                          ✅ Usuario válido
   │
   ├─----------------------─► Product Service
   │                          GET /api/products/1
@@ -268,34 +264,13 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price, subtotal) V
 ```
 
 **Proceso:**
-1. Validar usuario llamando a User Service
-2. Para cada item:
+1. Para cada item:
    - Validar producto en Product Service
    - Obtener precio actual
    - Calcular subtotal
-3. Calcular total de la orden
-4. Generar número de orden único
-5. Guardar en BD
-6. Retornar orden completa
-
-### RF-02: Obtener Orden Completa
-
-**Endpoint:** `GET /api/orders/{id}`
-
-**Response (200 OK):**
-```json
-{
-  "id": 1,
-  "orderNumber": "ORD-2025-001",
-  "user": { ... },
-  "items": [ ... ],
-  "totalAmount": 2599.98,
-  "status": "CONFIRMED",
-  "createdAt": "2025-01-20T10:30:00",
-  "updatedAt": "2025-01-20T11:00:00"
-}
-```
+2. Calcular total de la orden
+3. Generar número de orden único
+4. Guardar en BD
+5. Retornar orden completa
 
 ---
-
-
