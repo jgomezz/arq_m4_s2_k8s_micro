@@ -1,4 +1,4 @@
-#  Microservicio User-Service - OAuth 2.0 y JWT en Kubernetes
+#  Microservicio Product-Service - OAuth 2.0 y JWT en Kubernetes
 
 <img src="images/auth2_jwt_class.png" width="500"/>
 
