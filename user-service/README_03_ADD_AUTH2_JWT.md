@@ -657,10 +657,10 @@ jwt:
 # Sin autenticación → 401
 curl http://localhost:8081/api/users
 
-# Con ADMIN → 200
+# Con ADMIN → 401
 curl -u juan.perez@example.com:admin123 http://localhost:8081/api/users
 
-# Con USER intentando acceso ADMIN → 403
+# Con USER intentando acceso ADMIN → 401
 curl -u maria.garcia@example.com:user123 http://localhost:8081/api/users
 ```
 
