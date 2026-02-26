@@ -32,8 +32,8 @@ public class ProductApplicationService {
     }
     
     @Transactional(readOnly = true)
-    public Product getProductById(Long id) {
-        return getProductByIdUseCase.execute(id);
+    public Product getProductById(Long id, String jwtToken) {
+        return getProductByIdUseCase.execute(id, jwtToken);
     }
     
     @Transactional(readOnly = true)

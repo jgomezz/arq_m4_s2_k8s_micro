@@ -22,7 +22,7 @@ public class GetProductByIdUseCase {
 
     private final UserClient userClient;
 
-    public Product execute(Long id) {
+    public Product execute(Long id, String jwtToken) {
         log.debug("Executing GetProductByIdUseCase for id: {}", id);
 
         Product prod = productRepository.findById(id)
@@ -32,7 +32,7 @@ public class GetProductByIdUseCase {
         // Llama al microservicio user-service
         // --------------------------------------------------------
         // Validar que el usuario existe en userdb
-        User user = userClient.getUserById(prod.getCreatedBy());
+        User user = userClient.getUserById(prod.getCreatedBy(), jwtToken);
         log.info("Fetching user from userdb: {}", user);
 
         if(user == null) {

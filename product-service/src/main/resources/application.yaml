@@ -80,3 +80,23 @@ user:
 jwt:
   secret: ${JWT_SECRET:m1S3cr3tK3yJWT_T3csup2025!@#SecureToken}
   expiration: 3600000  # 1 hora en milisegundos
+
+
+# ============================================
+# RESILIENCE4J (Sesión 3)
+# ============================================
+resilience4j:
+  circuitbreaker:
+    instances:
+      userService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000    # 10 segundos en OPEN
+        permittedNumberOfCallsInHalfOpenState: 3
+  retry:
+    instances:
+      userService:
+        maxAttempts: 3
+        waitDuration: 1000                # 1 segundo entre reintentos

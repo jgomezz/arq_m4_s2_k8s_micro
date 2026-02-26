@@ -54,9 +54,22 @@ public class ProductController {
      * Obtiene un producto por ID 
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id,
+                                                          @RequestHeader(value = "Authorization", required = false) String authHeader) {
         log.info("REST request to get product by id: {}", id);
-        Product product = productApplicationService.getProductById(id);
+
+        // Extraer JWT del header
+        String jwtToken = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            jwtToken = authHeader.substring(7);
+        } else {
+            log.warn("No Authorization header with Bearer token found for product retrieval");
+        }
+
+        log.info("jwtToken extracted for product retrieval: {}", jwtToken != null);
+
+        Product product = productApplicationService.getProductById(id, jwtToken);
         return ResponseEntity.ok(productDtoMapper.toResponse(product));
     }
     
