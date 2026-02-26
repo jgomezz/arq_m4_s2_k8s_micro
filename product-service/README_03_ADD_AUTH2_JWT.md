@@ -433,7 +433,7 @@ docker images | grep product-service
 # Ejecutar contenedor de la app
 docker run -p 8082:8082 \
 -e SPRING_PROFILES_ACTIVE=kubernetes \
--e DB_URL=jdbc:postgresql://host.docker.internal:5434/productdb \
+-e DB_URL=jdbc:postgresql://host.docker.internal:5433/productdb \
 -e DB_USERNAME=postgres \
 -e DB_PASSWORD=postgres \
 product-service:1.0
@@ -450,11 +450,7 @@ curl http://localhost:8082/actuator/health
 curl http://localhost:8082/api/products
 
 # Respuesta esperada
- {
-     "error": "No autenticado",
-     "status": 401,
-     "message": "Debes autenticarte para acceder a este recurso"
- }
+# Obtiene todos los productos porque no tiene restricciones
 
 # Detener el servicio Ctrl + C
 ```

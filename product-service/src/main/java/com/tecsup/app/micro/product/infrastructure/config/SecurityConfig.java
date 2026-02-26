@@ -37,6 +37,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    // =============================================
+    // Descomentar para Sesión 2 (JWT)
+    // =============================================
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -63,6 +69,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
+                // =============================================
+                // Sesión 2: JWT (descomentar)
+                // =============================================
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // Manejo de errores
                 .exceptionHandling(ex -> ex

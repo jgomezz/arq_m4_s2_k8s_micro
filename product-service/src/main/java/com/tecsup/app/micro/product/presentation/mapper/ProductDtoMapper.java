@@ -11,11 +11,11 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 /**
- * Mapper entre DTOs de presentación y modelo de dominio usando MapStruct
+ * Mapper entre DTOs de presentación y modelo de dominio usando MapStruct -- --
  */
 @Mapper(componentModel = "spring", uses = {UserDtoMapper.class})
 public interface ProductDtoMapper {
-    
+
     /**
      * Convierte CreateProductRequest a Product de dominio
      */

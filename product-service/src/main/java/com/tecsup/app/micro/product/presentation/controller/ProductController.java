@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controlador REST de Productos
+ * Controlador REST de Productos --
  */
 @RestController
 @RequestMapping("/api/products")
@@ -110,10 +110,11 @@ public class ProductController {
     }
     
     /**
-     * Endpoint de salud
+     * Endpoint de salud 
      */
     @GetMapping("/health")
     public ResponseEntity<String> health() {
-        return ResponseEntity.ok("Product Service running with Clean Architecture!");
+        // TODO : Nuevo cambios
+        return ResponseEntity.ok("Product Service running with Clean Architecture! - ---");
     }
 }
