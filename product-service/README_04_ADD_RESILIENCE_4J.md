@@ -1,7 +1,7 @@
 #  Microservicio User-Service - Resilience4j
 
 
-## 1.- Modificar pom.xml
+### 1.- Modificar pom.xml
 
 
 ```xml
@@ -37,7 +37,33 @@
 
 
 ```
-### 2.- UserClient.java con JWT + Resilience4j
+
+### 2.- Agregar parámetros de Resilience4j en application.yaml y application-kubernetes.yaml
+
+```yaml
+
+# ============================================
+# RESILIENCE4J (Sesión 3)
+# ============================================
+resilience4j:
+  circuitbreaker:
+    instances:
+      userService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000    # 10 segundos en OPEN
+        permittedNumberOfCallsInHalfOpenState: 3
+  retry:
+    instances:
+      userService:
+        maxAttempts: 3
+        waitDuration: 1000                # 1 segundo entre reintentos
+
+```
+
+### 3.- UserClient.java con JWT + Resilience4j
 
 ```java
 
@@ -164,7 +190,7 @@ public class UserClient {
 
 ```
 
-### 3.- ProductController.java (método getProductById )
+### 4.- ProductController.java (método getProductById )
 
 ```java
 
@@ -228,7 +254,7 @@ public class ProductController {
 ```
 
 
-### 4.- Adaptar las clases 
+### 5.- Adaptar las clases 
 
 - ProductApplicationService.java
 
@@ -352,7 +378,7 @@ public class SecurityConfig {
 
 ```
 
-### 5.- Pruebas
+### 6.- Pruebas
 
 
 ```
@@ -381,7 +407,7 @@ curl -H "Authorization: Bearer $TOKEN"  http://localhost:8082/api/products/1
 ```
 
 
-### 6.- Desplegar en Kubernetes (ver README.md)
+### 7.- Desplegar en Kubernetes (ver README.md)
 
 - Verificar el contexto de Docker Desktop
 
@@ -420,7 +446,7 @@ kubectl logs -f <POD_NAME> -n product-service
 ```
 
 
-### 2.3.- Probar autenticación en Kubernetes
+### 8.- Probar en Kubernetes
 
 ```
 
