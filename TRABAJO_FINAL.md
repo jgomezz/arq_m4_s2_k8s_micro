@@ -4,6 +4,11 @@
 
 ---
 
+curl.exe -s -X POST http://localhost:8081/api/auth/login  -H "Content-Type: application/json" -d '{"email":"juan.perez@example.com","password":"admin123"}'
+
+curl.exe -H "Authorization: Bearer $TOKEN" http://localhost:8081/api/users
+
+
 ## 🎯 OBJETIVO
 
 Desarrollar un microservicio de **Gestión de Órdenes (Order Service)** que se integre con el microservicio **Product Service** y se despliegue localmente en Kubernete.
@@ -16,7 +21,7 @@ En una arquitectura de microservicios para un sistema de e-commerce, se requiere
 
 1. **Registrar órdenes de compra** que contengan uno o más productos
 2. **Asociar cada orden a un usuario** específico del sistema
-3. **(OPCIONAL)Calcular automáticamente** el monto total de la orden basándose en precios actuales
+3. **Calcular automáticamente** el monto total de la orden basándose en precios actuales
 
 El reto principal es que el Order Service **depende de**:
 - **Product Service**: Para validar productos y obtener precios actuales
