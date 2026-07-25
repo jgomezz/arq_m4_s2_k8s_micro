@@ -27,7 +27,9 @@ public class Product {
     private Long createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    
+
+    private User createdByUser; // Relación con el usuario que creó el producto (opcional)
+
     /**
      * Valida que el producto tenga los datos mínimos requeridos
      */
